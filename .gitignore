@@ -1,0 +1,4 @@
+venv
+mysql
+__pycache__
+mysql-apt-config_0.8.16-1_all.deb

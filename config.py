@@ -1,0 +1,10 @@
+
+
+
+TOKEN = "6225041097:AAE6C-AGj9fYuZM__N5JKoUlL6ONdN5bG5c"
+MYSQL_USER = "root"
+MYSQL_PASSWORD = "smartgirl"
+MYSQL_DATABASE = "emoji_db"
+MYSQL_HOST = "localhost"
+
+MYSQL_URL = f"mysql+pymysql://{MYSQL_USER}:{MYSQL_PASSWORD}@{MYSQL_HOST}/{MYSQL_DATABASE}"
