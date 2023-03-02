@@ -8,7 +8,7 @@ from config import MYSQL_URL
 
 engine = create_engine(MYSQL_URL)
 Base = declarative_base()
-session = sessionmaker(bind=engine, autoflush=True)
+session = sessionmaker(autocommit=False,bind=engine, autoflush=True)
 
 
 def get_session():
