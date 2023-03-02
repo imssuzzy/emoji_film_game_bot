@@ -21,3 +21,14 @@ class CategoryManager():
     def get_all_categories(self):
         results = self.session.query(self.model).all()
         return results
+
+
+class FilmManager():
+    def __init__(self):
+        self.session = get_session()
+        self.model = Film
+    
+    def insert_film(self, data):
+        inserts = []
+        for film in data:
+            pass
