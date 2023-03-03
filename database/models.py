@@ -41,4 +41,14 @@ class Film(Base):
     category = Column(Integer, ForeignKey("category.id"), nullable=False)
     
 
-
+class UserGuessedFilm(Base):
+    __tablename__="user_guessed_film"
+    id = Column(
+        Integer, 
+        primary_key=True,
+        autoincrement=True,
+        unique=True
+    )
+    user = Column(Integer, ForeignKey("user.id"), nullable=False)
+    film = Column(Integer, ForeignKey("film.id"), nullable=False)
+    
