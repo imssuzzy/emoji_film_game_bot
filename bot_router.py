@@ -9,6 +9,7 @@ dp = Dispatcher(bot)
 
 dp.register_message_handler(hs.welcome_message, commands=['start'])
 dp.register_message_handler(hs.start_game, commands=["start_game"])
+dp.register_message_handler(hs.finish_game, commands=["finish_game"])
 
 
 
