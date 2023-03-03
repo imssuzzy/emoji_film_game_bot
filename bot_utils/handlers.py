@@ -4,6 +4,7 @@ from bot_utils.keybords import get_category_btns
 
 from redis_client import redis_client
 from states import UserMessageState
+from aiogram.dispatcher import FSMContext
 
 async def welcome_message(message:types.Message):
     text = """
@@ -24,7 +25,7 @@ async def start_game(message:types.Message):
         await message.answer(text, reply_markup=markup)
     
 
-async def start_with_category(call: types.CallbackQuery):
+async def start_with_category(call: types.CallbackQuery, state: FSMContext):
     user_data = await redis_client.get_user_data(call.message.chat.id)
     if user_data:
         await call.message.answer("У вас имеется активная игра, завершите игру чтобы выбрать новую категорию")
@@ -35,8 +36,15 @@ async def start_with_category(call: types.CallbackQuery):
             "test":"test",
         }
     user_id = call.message.chat.id
+    await UserMessageState.answer_text.set()
     await redis_client.cache_user_data(user_tg_id=user_id, data=data)
     await call.message.answer("Вы выбрали категорию. Игра началась...")
+
+
+async def send_questions(message:types.Message, state: FSMContext):
+    
+
+
 
 async def finish_game(message:types.Message):
     user_id = message["from"].id
