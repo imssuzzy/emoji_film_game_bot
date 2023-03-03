@@ -31,4 +31,16 @@ class FilmManager():
     def insert_film(self, data):
         inserts = []
         for film in data:
-            pass
+            inserts.append(
+                Film(
+                    emoji_text = film[0],
+                    name_text = film[1],
+                    category = film[2]
+                )
+            )
+            self.session.add_all(inserts)
+            self.session.commit()
+        
+    def get_films(self):
+        r = self.session.query(self.model).all()
+        return r 
