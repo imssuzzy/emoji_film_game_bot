@@ -38,6 +38,6 @@ class UserGuessedFilm(Base):
         autoincrement=True,
         unique=True
     )
-    user = Column(Integer, ForeignKey("user.id"), nullable=False)
+    tg_user_id = Column(String(50), nullable=False)
     film = Column(Integer, ForeignKey("film.id"), nullable=False)
     

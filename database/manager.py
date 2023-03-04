@@ -1,4 +1,4 @@
-from database.models import Category, User, Film
+from database.models import Category, Film, UserGuessedFilm
 
 from db import get_session
 
@@ -41,6 +41,40 @@ class FilmManager():
             self.session.add_all(inserts)
             self.session.commit()
         
-    def get_films(self):
-        r = self.session.query(self.model).all()
-        return r 
+    def get_random_film(self, film_ids, category_id=None):
+        from sqlalchemy import not_
+        from sqlalchemy.sql import func
+        if category_id:
+            q = self.session.query(self.model).filter(
+                not_(Film.id.in_(film_ids)),
+                Film.category==category_id,
+                ).order_by(func.rand()).first()
+            return q
+        else:
+            q = self.session.query(self.model).filter(
+                not_(Film.id.in_(film_ids)),   
+                ).order_by(func.rand()).first()
+            return q
+       
+
+
+class GuessedFilmManager():
+
+
+    def __init__(self):
+        self.session = get_session()
+        self.model = UserGuessedFilm
+
+    def insert_guessed_film(self, tg_user_id, film_id):
+        insert = UserGuessedFilm(
+            tg_user_id = tg_user_id,
+            film = film_id
+        )
+        self.session.add(insert)
+        self.session.commit()
+
+    def get_guessed_films_ids(self, tg_user_id):
+        ids = self.session.query(UserGuessedFilm.film).filter(
+            UserGuessedFilm.tg_user_id==tg_user_id
+        )
+        return ids
